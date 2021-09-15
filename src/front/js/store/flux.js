@@ -21,6 +21,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			login: async (email, password) => {
+				//lo hacemos asíncrono para que sea más fácil de administrar
+				const options = {
+					method: "POST",
+					headers: {
+						"Content-type": "application/json"
+					},
+					body: JSON.stringify({
+						email: email,
+						password: password
+					})
+				};
+
+				try {
+					const resp = await fetch(
+						"https://3001-purple-impala-p24iuy49.ws-eu16.gitpod.io/api/token",
+						options
+					);
+					if (resp.status !== 200) {
+						alert("There was been some error");
+						return false;
+					}
+					const data = await resp.json();
+					console.log("This came from the backend", data);
+					localStorage.setItem("token", data.access_token); //access_token es lo que me respondió el token en Postman
+					return true;
+				} catch (error) {
+					console.log("There has been an error login in");
+				}
+			},
+
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")
