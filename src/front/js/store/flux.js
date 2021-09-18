@@ -21,6 +21,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			syncTokenFromLocalStore: () => {
+				//esta funcion obtendrá el token del localStore y lo pondrá en el store (con el setStore)
+				const token = localStorage.getItem("token"); //pero siempre y cuando se cumplan estas condiciones del if
+				if (token && token != "" && token != undefined) setStore({ token: token });
+			},
+
+			logout: () => {
+				localStorage.removeItem("token"); //borro el token del localStorage
+				console.log("Login out");
+				setStore({ token: null }); //y establezco el token del store vacío
+			},
+
 			login: async (email, password) => {
 				//lo hacemos asíncrono para que sea más fácil de administrar
 				const options = {
@@ -46,6 +58,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json();
 					console.log("This came from the backend", data);
 					localStorage.setItem("token", data.access_token); //access_token es lo que me respondió el token en Postman
+					setStore({ token: data.access_token });
 					return true;
 				} catch (error) {
 					console.log("There has been an error login in");
