@@ -3,6 +3,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_cors import CORS
+
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -25,12 +27,9 @@ def create_token():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
-
-
-
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend"
-    }
-
-    return jsonify(response_body), 200
+@api.route("/hello", methods=["GET"])
+@jwt_required()   #con este decorador consigo que sólo puedan acceder las personas que envían un token en la solicitud (GET)
+def get_hello():
+    email = get_jwt_identity()  #busca el email que coincida con el "identity" que hemos usado en el create_access_token
+    
+    return jsonify({"message": "Hello " + email}) 

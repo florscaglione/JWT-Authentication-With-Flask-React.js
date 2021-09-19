@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await resp.json();
 					console.log("This came from the backend", data);
-					localStorage.setItem("token", data.access_token); //access_token es lo que me respondió el token en Postman
+					localStorage.setItem("token", data.access_token); //access_token es lo que me respondió el token en Postman (es decir, lo que me llega desde el backend)
 					setStore({ token: data.access_token });
 					return true;
 				} catch (error) {
@@ -66,10 +66,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: () => {
+				const store = getStore(); //con esto accedo al store, que es de donde obtengo el token que voy a utilizar
+				const options = {
+					headers: {
+						Authorization: "Bearer " + store.token
+					}
+				};
+
 				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
+				fetch("https://3001-purple-impala-p24iuy49.ws-eu16.gitpod.io/api/hello", options)
 					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
+					.then(data => setStore({ message: data.message })) //message es lo que me respondió el token en Postman (es decir, lo que me llega desde el backend)
 					.catch(error => console.log("Error loading message from backend", error));
 			},
 			changeColor: (index, color) => {
