@@ -13,7 +13,7 @@ export const Login = () => {
 	console.log("This is your token", store.token);
 	const handleClick = () => {
 		actions.login(email, password).then(() => {
-			history.push("/"); //redireccionamiento a la pág. principal
+			history.push("/"); //redireccionamiento a la pág. principal (similar al "link to")
 		});
 	};
 

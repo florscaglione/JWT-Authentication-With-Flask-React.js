@@ -27,6 +27,29 @@ def create_token():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
+
+
+# Quiero crear usuarios:
+@api.route('/register', methods=['POST'])
+def register():
+    json = request.get_json()       # con esto cogemos el body que le enviamos para indicar qué país/ciudad/user estamos creando
+    
+    if json is None:    # si no lo encuentra, tira este error (con esto ya tenemos la comprobación hecha para todas las funciones que usen este get_json())
+        raise APIException("No se ha enviado un JSON o no se ha especificado en el header que se nos ha enviado un JSON") # lanzo una excepción que la aplicación captura y devuelve al usuario
+   
+       # return json     # si lo encuentra, lo devuelve
+
+    email = json.get("email") # cogemos el email que se ha escrito (lo mismo con el password)
+    password = json.get("password")
+
+    user = User(email=email, password=password, is_active=True) # creamos el usuario: significa que llene la columna email (1er "email") con lo que se haya escrito como email (2o email), y lo mismo con el password
+
+    user.save()  # llamo a la función "save" (está en los modelos) para guardar el usuario en la BBDD
+
+    return jsonify(user.serialize()), 200 
+
+
+
 @api.route("/hello", methods=["GET"])
 @jwt_required()   #con este decorador consigo que sólo puedan acceder las personas que envían un token en la solicitud (GET)
 def get_hello():

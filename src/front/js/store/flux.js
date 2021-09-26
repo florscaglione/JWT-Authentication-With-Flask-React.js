@@ -48,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				try {
 					const resp = await fetch(
-						"https://3001-purple-impala-p24iuy49.ws-eu16.gitpod.io/api/token",
+						"https://3001-purple-impala-p24iuy49.ws-eu18.gitpod.io/api/token",
 						options
 					);
 					if (resp.status !== 200) {
@@ -74,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				// fetching data from the backend
-				fetch("https://3001-purple-impala-p24iuy49.ws-eu16.gitpod.io/api/hello", options)
+				fetch("https://3001-purple-impala-p24iuy49.ws-eu18.gitpod.io/api/hello", options)
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message })) //message es lo que me respondió el token en Postman (es decir, lo que me llega desde el backend)
 					.catch(error => console.log("Error loading message from backend", error));
