@@ -10,13 +10,14 @@ export const Navbar = () => {
 			<Link to="/">
 				<span className="navbar-brand mb-0 h1">HOME</span>
 			</Link>
-			<Link to="/register">
-				<button className="btn btn-primary">Register</button>
-			</Link>
+
 			<div className="ml-auto">
+				<Link to="/register">
+					<button className="btn btn-primary mr-2 btn-lg">Register</button>
+				</Link>
 				{!store.token ? (
 					<Link to="/login">
-						<button className="btn btn-primary">Log in</button>
+						<button className="btn btn-primary btn-lg">Log in</button>
 					</Link>
 				) : (
 					<button onClick={() => actions.logout()} className="btn btn-primary">

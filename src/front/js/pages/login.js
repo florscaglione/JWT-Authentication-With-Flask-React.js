@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import login from "../../img/login.png";
 import "../../styles/login.scss";
 
 export const Login = () => {
@@ -41,6 +41,9 @@ export const Login = () => {
 						}}
 					/>
 					<button onClick={handleClick}>Login</button>
+					<p>
+						<img src={login} />
+					</p>
 				</div>
 			)}
 		</div>

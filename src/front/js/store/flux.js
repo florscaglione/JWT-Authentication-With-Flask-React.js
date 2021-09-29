@@ -79,6 +79,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => setStore({ message: data.message })) //message es lo que me respondió el token en Postman (es decir, lo que me llega desde el backend)
 					.catch(error => console.log("Error loading message from backend", error));
 			},
+
+			// Esta función no me sirve (venía de ejemplo):
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
