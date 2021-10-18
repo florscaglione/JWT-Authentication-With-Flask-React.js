@@ -11,7 +11,7 @@ export const Register = () => {
 
 	async function createUser() {
 		// podría llevarme esta función al flux,pero en este caso solo se usa aquí
-		const result = await fetch(`https://3001-purple-impala-p24iuy49.ws-eu18.gitpod.io/api/register`, {
+		const result = await fetch(`https://3001-purple-impala-p24iuy49.ws-eu17.gitpod.io/api/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
